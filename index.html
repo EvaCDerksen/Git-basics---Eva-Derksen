@@ -1,17 +1,183 @@
 <!DOCTYPE html>
-<html lang="nl">
-	<head>
-		<meta charset="UTF-8" />
-		<title>gerrit</title>
-		<link type="text/css" href="styles/my_style.css" rel="stylesheet" />
-		<script type="text/javascript" src="scripts/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="scripts/my_scripts.js"></script>
-	</head>
-	<body>
-		<section id="woonkamer">
-			<img id="background" src="images/background.jpg" />
-			<img id="gerrit" src="images/gerrit.png" />
-		</section>
-		<p>Spongebob Squarepants and Gary. Nickelodeon Animation Studios 1999</p>
-	</body>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Drie gelijke columns naast elkaar */
+.column {
+  float: left;
+  width: 33%;
+  padding: 20px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Zodra het scherm minimaal 992px breed is, drie columns schermvullend naast elkaar */
+@media screen and (min-width: 991px) {
+  .column {
+    width: 33.3%;
+  }
+}
+
+/* Zodra het scherm 992px breed of minder is, ga van drie naar twee columns */
+@media screen and (max-width: 992px) {
+  .column {
+    width: 50%;
+  }
+}
+
+/* Zodra het scherm 600px breed of minder is, stapel de columns boven elkaar i.p.v naast elkaar */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    padding: 35px;
+  }
+}
+
+/*body bg colour*/
+body {
+  background-color: black;
+  color: white;
+  margin: 30px;
+}
+
+/* Scherm 992px en < breed (Twee columns) */
+@media screen and (max-width: 992px) {
+  body {
+    color: white;
+  }
+}
+
+/* Scherm 600px en < breed (Een column) */
+@media screen and (max-width: 600px) {
+  body {
+    color: white;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<h2>SpaceX</h2>
+
+<div class="row">
+  <div class="column" style="background-color:#171a1f;">
+    <h2>Afgelegde Afstand</h2>
+    <p>Hier is de afgelegde afstand over tijd weergeven.<br>
+
+    <canvas id="LineChart"></canvas> <!-- let op naam veranderen bij andere chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> <!-- Niet nogmaals kopiëren -->
+
+    <script type="text/javascript">
+      Chart.defaults.global.defaultFontColor = '#fff';
+      Chart.defaults.global.defaultFontFamily = 'Century Gothic';
+
+      var ctx = document.getElementById('LineChart').getContext('2d');
+      var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Dag 1', 'Dag 5', 'Dag 10', 'Dag 15', 'Dag 20', 'Dag 25', 'Dag 30'],
+            datasets: [{
+                label: 'Afstand afgelegd',
+                backgroundColor: 'rgb(146, 51, 255)',
+                pointHoverBackgroundColor: 'rgb(28, 168, 255)',
+                pointHoverBorderColor: 'rgb(28, 168, 255)',
+                borderColor: 'rgb(146, 51, 255)',
+                data: [0, 10, 20, 32, 45, 57, 70]
+            }]
+        },
+        options: {}
+      });
+    </script>
+
+  </p>
+   </div>
+  
+  <div class="column" style="background-color:#171a1f;">
+    <h2>Voorraden</h2>
+    <p>Hiermee worden de soorten en hoeveelheden bevoorrading getoond.<br>
+
+    <canvas id="Doughnut"></canvas>
+
+    <script type="text/javascript">
+      Chart.defaults.global.defaultFontColor = '#fff';
+      Chart.defaults.global.defaultFontFamily = 'Century Gothic';
+
+      var ctx = document.getElementById('Doughnut').getContext('2d');
+      var chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['gedehydreerd voedsel', 'Zetmeel producten', 'Gevriesdroogd fruit','Noten','Repen'],
+            datasets: [{
+                backgroundColor: [
+                'rgb(12, 22, 79)',
+                'rgb(86, 67, 253)',
+                'rgb(71, 10, 110)',
+                'rgb(186, 30, 104)',
+                'rgb(146, 51, 255)',
+                ],
+                data: [30, 26, 17, 13, 13]
+            }]
+        },
+        options: {}
+      });
+    </script>
+
+    </p>
+  </div>
+  
+  <div class="column" style="background-color:#171a1f;">
+    <h2>Zuurstof</h2>
+    <p>Meet de verhouding tussen het stikstof, koofstofdioxide en zuurstofgehalte in de lucht.<br>
+
+      <canvas id="polarChart" width="400" height="400"></canvas>
+      <script>
+      var ctx = document.getElementById('polarChart');
+      var myChart = new Chart(ctx, {
+          type: 'polarArea',
+          data: {
+              labels: ['Zuurstof','koolstofdioixde','Stikstof'],
+              datasets: [{
+                  label: '% totaal voorraden',
+                  data: [20, 2, 78],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.5)',
+                      'rgba(51, 102, 255, 0.5)',
+                      'rgba(146, 51, 255, 0.5)',
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(51, 102, 255, 0.5)',
+                      'rgba(146, 51, 255, 1)',
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero: true
+                      }
+                  }]
+              }
+          }
+      });
+      </script>
+
+    </p>
+  </div>
+ 
+</div>
+
+</body>
 </html>
